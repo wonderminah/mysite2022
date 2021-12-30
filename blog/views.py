@@ -1,20 +1,51 @@
+from bs4 import BeautifulSoup
 from django.shortcuts import render
 import markdown
+import os
+import time
+from lxml import html
+
+path = '/Users/minah.kim/Desktop/MinahKimTechBlog/'
+extensions = ["extra", "abbr", "attr_list", "def_list", "fenced_code", "footnotes", "md_in_html", "tables",
+              "admonition", "codehilite", "legacy_attrs", "legacy_em", "meta", "nl2br", "sane_lists", "smarty",
+              "toc", "wikilinks"]
 
 
 def index(request):
+    file_list = []
 
-    file_path = '/Users/minah.kim/Desktop/MinahKimTechBlog/'
-    file_name = '1.md'
-    target_file = file_path + file_name
+    for root, directories, files in os.walk(path):
+        for filename in files:
+            if '.md' in filename:
+                # Open File
+                full_path = path + filename
+                stream = open(full_path, 'r', encoding='UTF-8')
+                # Convert markdown string > html string > plain text
+                raw_str = stream.read(300)
+                html_str = markdown.markdown(raw_str, extensions=extensions)
+                plain_text = ''.join(BeautifulSoup(html_str, 'html.parser').findAll(text=True))
+                # Extract just first 100 string as summary
+                summary = plain_text[:300]
 
-    with open(target_file, 'r', encoding='UTF-8') as file:
+                item = {
+                    'title': filename[0:-3],
+                    'last_modified_time': time.strftime('%B %d, %Y', time.localtime(os.path.getmtime(os.path.join(root, filename)))),
+                    'summary': summary
+                }
+
+                file_list.append(item)
+
+    variables = {'file_list': file_list}
+
+    return render(request, 'blog/index.html', variables)
+
+
+def post(request, filename):
+    full_path = path + filename + '.md'
+    with open(full_path, 'r', encoding='UTF-8') as file:
         text = file.read()
+    html_str = markdown.markdown(text, extensions=extensions)
+    file_contents = '{}'.format(html_str)
+    variables = {'file_contents': file_contents}
 
-    extensions = ["extra", "abbr", "attr_list", "def_list", "fenced_code", "footnotes", "md_in_html", "tables", "admonition", "codehilite", "legacy_attrs", "legacy_em", "meta", "nl2br", "sane_lists", "smarty", "toc", "wikilinks"]
-    html = markdown.markdown(text, extensions=extensions)
-    print(html)
-    body = '{}'.format(html)
-    context = {'title': 'this is title', 'body': body}
-
-    return render(request, 'blog/index.html', context)
+    return render(request, 'blog/post.html', variables)
