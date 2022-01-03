@@ -59,11 +59,11 @@ Running migrations:
 ```sql
 INSERT INTO posts () VALUES ();
 
-SELECT * FROM posts;
+mysql> SELECT * FROM posts;
 +---------+---------------+---------------------+---------------------+---------------------+
 | post_id | target_mdfile | created_datetime    | updated_datetime    | timestamp           |
 +---------+---------------+---------------------+---------------------+---------------------+
-|       1 |               | 2022-01-03 20:14:26 | 2022-01-03 20:14:26 | 2022-01-03 20:14:26 |
+|       1 |               | 2022-01-04 06:10:12 | 2022-01-04 06:10:12 | 2022-01-04 06:10:12 |
 +---------+---------------+---------------------+---------------------+---------------------+
 1 row in set (0.00 sec)
 ```
@@ -74,82 +74,22 @@ SELECT * FROM posts;
 from .models import Posts
 
 def index(request):
-    print(Posts.post_id)
+    posts = Posts.objects.all()
+    for post in posts:
+        print(post.post_id)
+        print(post.target_mdfile)
+        print(post.created_datetime)
+        print(post.updated_datetime)
+        print(post.timestamp)
 ```
 
-결과, 무언가 취득된 것이 확인된다.
+결과, 데이터가 확인되는 것을 알 수 있다. 완료.
 
 ```bash
-<django.db.models.query_utils.DeferredAttribute object at 0x106e2be50>
-[03/Jan/2022 20:20:31] "GET / HTTP/1.1" 200 8695
-```
+1
 
-직접 데이터가 취득되는지 확인하고 싶으므로, [**getter 및 setter를 정의**](https://www.nblog09.com/w/2019/01/09/python-setter-getter/)하고 다시 호출해 보았으나,
-정의의 오류인지 호출 문법의 오류인지 확인은 제대로 안 되었다. 우선 여기까지 해두고 차후 다시 확인 예정.
-
-```python
-class Posts(models.Model):
-  
-		...
-
-    @property
-    def post_id(self):
-        return self.__post_id
-
-    @property
-    def target_mdfile(self):
-        return self.__target_mdfile
-
-    @property
-    def created_datetime(self):
-        return self.__created_datetime
-
-    @property
-    def updated_datetime(self):
-        return self.__updated_datetime
-
-    @property
-    def timestamp(self):
-        return self.__timestamp
-
-    @post_id.setter
-    def post_id(self, value):
-        self.__post_id = value
-
-    @target_mdfile.setter
-    def target_mdfile(self, value):
-        self.__target_mdfile = value
-
-    @created_datetime.setter
-    def created_datetime(self, value):
-        self.__created_datetime = value
-
-    @updated_datetime.setter
-    def updated_datetime(self, value):
-        self.__updated_datetime = value
-
-    @timestamp.setter
-    def timestamp(self, value):
-        self.__timestamp = value
-
-    @post_id.deleter
-    def post_id(self):
-        del self.__post_id
-
-    @target_mdfile.deleter
-    def target_mdfile(self):
-        del self.__target_mdfile
-
-    @created_datetime.deleter
-    def created_datetime(self):
-        del self.__created_datetime
-
-    @updated_datetime.deleter
-    def updated_datetime(self):
-        del self.__updated_datetime
-
-    @timestamp.deleter
-    def timestamp(self):
-        del self.__timestamp
+2022-01-04 06:10:12+00:00
+2022-01-04 06:10:12+00:00
+2022-01-04 06:10:12+00:00
 ```
 
