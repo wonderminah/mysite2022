@@ -4,10 +4,25 @@ import markdown
 import os
 import time
 
-path = 'static/post/md'
-extensions = ["extra", "abbr", "attr_list", "def_list", "fenced_code", "footnotes", "md_in_html", "tables",
-              "admonition", "codehilite", "legacy_attrs", "legacy_em", "meta", "nl2br", "sane_lists", "smarty",
-              "toc", "wikilinks"]
+path = '/usr/local/pythonvenv/minahblog/mysite/blog/static/post/md/'
+extensions = ["extra",
+              "abbr",
+              "attr_list",
+              "def_list",
+              "fenced_code",
+              "footnotes",
+              "md_in_html",
+              "tables",
+              "admonition",
+              "codehilite",
+              "legacy_attrs",
+              "legacy_em",
+              "meta",
+              "nl2br",
+              "sane_lists",
+              "smarty",
+              "toc",
+              "wikilinks"]
 
 
 def index(request):
