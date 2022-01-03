@@ -1,13 +1,37 @@
+{% load static %}
 <div class="container">
     <header class="pt-3 pb-3 border-bottom">
-        <div>
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <div class="nav col-12 col-lg-auto me-lg-auto mb-2 mb-md-0">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <div class="nav col-12">
+                <div class="col-11 pt-1">
                     <a href="/blog" style="text-decoration-line: none;">
-                        <p class="mt-2 h5 text-secondary"><b>Minah Kim Tech Blog</b></p>
+                        <p class="h5 text-secondary"><b>Minah Kim Tech Blog</b></p>
+                    </a>
+                </div>
+                <div class="col-1">
+                    <a id="nav-toggle-btn" class="text-muted float-end justify-content-end align-middle"
+                       data-toggle="collapse" href="#nav" role="button" aria-expanded="false" aria-controls="nav">
+                        <img src="{% static 'assets/img/chevron-down.svg' %}" class="bi" width="24" height="24">
                     </a>
                 </div>
             </div>
         </div>
     </header>
 </div>
+
+<script>
+    $('#nav-toggle-btn').on('click', function(e) {
+        e.preventDefault();
+
+        var $btn = $(this);
+        var $nav = $('.collapse');
+        var expanded = $btn.attr('aria-expanded');
+        if (expanded === 'true') {
+            $nav.collapse('hide');
+            $btn.attr('aria-expanded', 'false');
+        } else if (expanded === 'false') {
+            $nav.collapse('show');
+            $btn.attr('aria-expanded', 'true');
+        }
+    })
+</script>
