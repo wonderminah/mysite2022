@@ -154,3 +154,26 @@ settings.py의 수정사항을 반영하기 위해 EC2 인스턴스 서버에서
 $ python manage.py makemigrations
 $ python manage.py migrate
 ```
+
+python에서는 dbshell이라는 커맨드가 존재하는데, 이는 settings.py에서 설정한 데이터베이스로 접속하게 해주는 명령이다.
+이 명령어를 실행하였을 때 아래와 같이 mysql 서버에 제대로 접속이 된다면, 연동에 성공한 것이다.
+
+```bash
+(minahblog) [centos@ip-172-31-45-178 mysite]$ python manage.py dbshell
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 31
+Server version: 8.0.26 Source distribution
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+```
