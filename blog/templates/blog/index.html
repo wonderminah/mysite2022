@@ -31,7 +31,7 @@
             <div class="pt-3 pb-3">
                 {% for file in file_list %}
                     <article class="blog-post mb-3 border-bottom">
-                        <a class="text-black" href="/blog/post/{{ file.title }}" style="text-decoration-line: none;">
+                        <a class="text-black" href="/post/{{ file.title }}" style="text-decoration-line: none;">
                             <h2 class="blog-post-title">{{ file.title }}</h2>
                         </a>
                         <p class="blog-post-meta">{{ file.last_modified_time }}</p>
