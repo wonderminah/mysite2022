@@ -2,11 +2,11 @@
 
 우선 DB 테이블 작성. 블로그 포스트 데이터를 관리할 posts라는 테이블을 작성한다.
 
-```mysql
+```sql
 use blog;
 ```
 
-```mysql
+```sql
 CREATE TABLE posts (
  `post_id` mediumint(7) unsigned NOT NULL auto_increment,
  `target_mdfile` varchar(255) NOT NULL default '',
@@ -56,7 +56,7 @@ Running migrations:
 테스트를 위해 dummy 데이터 1행 생성.
 모든 컬럼에 default value가 설정되어 있으므로 괄호 안에는 특정 key와 value를 입력하지 않아도 되는 쿼리이다.
 
-```mysql
+```sql
 INSERT INTO posts () VALUES ();
 
 SELECT * FROM posts;
