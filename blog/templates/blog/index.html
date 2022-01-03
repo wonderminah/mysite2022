@@ -30,7 +30,7 @@
         <div class="col-md-9">
             <div class="pt-3 pb-3">
                 {% for file in file_list %}
-                    <article class="blog-post mb-3 border-bottom">
+                    <article class="blog-post mb-3 {% if not forloop.last %}border-bottom{% endif %}">
                         <a class="text-black" href="/post/{{ file.title }}" style="text-decoration-line: none;">
                             <h2 class="blog-post-title">{{ file.title }}</h2>
                         </a>
